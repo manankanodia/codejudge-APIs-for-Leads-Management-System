@@ -13,12 +13,33 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
-from django.contrib import admin
-from restapi.views import *
+# from django.conf.urls import url
+# from django.contrib import admin
+# from restapi.views import *
 
+
+# urlpatterns = [
+#     url(r'^admin/', admin.site.urls),
+# ]
+
+
+# from django.urls import path
+#
+# from restapi.views import *
+#
+# urlpatterns = [
+#     path('api/leads/<int:id>', get_lead),
+#     path('api/leads/', generate_lead),
+# ]
+
+from django.urls import path
+from rest_framework.urlpatterns import format_suffix_patterns
+from restapi import views
 
 urlpatterns = [
-    url(r'^admin/', admin.site.urls),
-    url(r'', index),
+    path('api/leads/<int:pk>', views.Leads.as_view()),
+    path('api/leads/', views.Leads.as_view()),
+    path('api/mark_lead/<int:pk>', views.MarkLead.as_view()),
 ]
+
+urlpatterns = format_suffix_patterns(urlpatterns)
